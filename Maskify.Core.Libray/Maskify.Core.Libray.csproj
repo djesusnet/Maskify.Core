@@ -14,10 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\Maskify.png">
+    <None Include="Maskify.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
