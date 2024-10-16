@@ -109,6 +109,30 @@
             return new string(result);
         }
 
+        public static string MaskCreditCard(this string creditCard, char maskCharacter = '*')
+        {
+            var isDefault = (creditCard.Where(char.IsDigit).ToArray().Length == 16 && creditCard.Split(' ').Length == 4);
+            var isAmex = (creditCard.Where(char.IsDigit).ToArray().Length == 15 && creditCard.Split(' ').Length == 3);
+            var isDinersClub = (creditCard.Where(char.IsDigit).ToArray().Length == 14 && creditCard.Split(' ').Length == 3);
+
+            if (string.IsNullOrEmpty(creditCard) || (!isDefault && !isDinersClub && !isAmex)) 
+                throw new ArgumentException("Cartão de crédito inválido.");
+
+            Span<char> result = creditCard.Length <= 19 ? stackalloc char[creditCard.Length] : new char[creditCard.Length];
+            creditCard.AsSpan().CopyTo(result);
+
+            var maxLength = 15;
+            if (isAmex) maxLength = 14;
+            if (isDinersClub) maxLength = 13;
+
+            for (int i = 0; i < maxLength; i++)
+            {
+                if (result[i].ToString() != " ") 
+                    result[i] = maskCharacter;
+            }
+            return new string(result);
+        }
+
         /// <summary>
         /// Função auxiliar para formatar CPF
         /// </summary>
