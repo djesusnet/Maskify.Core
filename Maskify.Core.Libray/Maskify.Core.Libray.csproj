@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>Maskify.Core</PackageId>
+    <Title>Maskify - Sensitive Data Masking Library</Title>
+    <Version>1.0.0</Version>
+    <Authors>Daniel Jesus</Authors>
+    <Description>Maskify is a lightweight library for masking sensitive data using Span&lt;T&gt; for optimal performance. It supports Brazilian documents like CPF and CNPJ, as well as email addresses and other data types. Customize the mask character and ensure efficient protection of sensitive information with minimal memory usage.</Description>
+    <PackageIcon>Maskify.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\Maskify.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

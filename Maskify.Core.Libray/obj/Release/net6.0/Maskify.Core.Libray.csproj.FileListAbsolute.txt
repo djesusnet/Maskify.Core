@@ -1,0 +1,11 @@
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\bin\Release\net6.0\Maskify.Core.Libray.deps.json
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\bin\Release\net6.0\Maskify.Core.Libray.dll
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\bin\Release\net6.0\Maskify.Core.Libray.pdb
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.AssemblyInfoInputs.cache
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.AssemblyInfo.cs
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.csproj.CoreCompileInputs.cache
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.dll
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\refint\Maskify.Core.Libray.dll
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\Maskify.Core.Libray.pdb
+C:\Users\djesu\source\repos\Maskify.Core.Libray\Maskify.Core.Libray\obj\Release\net6.0\ref\Maskify.Core.Libray.dll
