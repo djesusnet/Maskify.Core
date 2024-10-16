@@ -1,6 +1,7 @@
 # Maskify - Sensitive Data Masking Library
 
-  
+![Maskify menor](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
+
 *A simple, powerful, and efficient way to mask sensitive data.*
 
 **Maskify** is a powerful and easy-to-use library for masking sensitive data such as Brazilian documents (CPF, CNPJ) and emails. It also allows you to mask any other type of information through highly customizable, generic methods.
