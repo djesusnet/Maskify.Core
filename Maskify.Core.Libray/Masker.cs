@@ -37,6 +37,8 @@
         /// <returns></returns>
         public static string MaskCPF(this string cpf, char maskCharacter = '*')
         {
+            if (string.IsNullOrWhiteSpace(cpf)) throw new ArgumentNullException(nameof(cpf), "CPF não informado");
+            
             // Remove qualquer formatação (pontos e traços) usando Span
             Span<char> cpfDigits = stackalloc char[11];
             int index = 0;
@@ -65,6 +67,8 @@
         /// <returns></returns>
         public static string MaskCNPJ(this string cnpj, char maskCharacter = '*')
         {
+            if (string.IsNullOrWhiteSpace(cnpj)) throw new ArgumentNullException(nameof(cnpj), "CNPJ não informado");
+            
             // Remove qualquer formatação (pontos, barras e traços) usando Span
             Span<char> cnpjDigits = stackalloc char[14];
             int index = 0;
@@ -106,6 +110,41 @@
                 result[i] = maskCharacter;
             }
 
+            return new string(result);
+        }
+
+        /// <summary>
+        /// Método para mascarar cartão de crédito
+        /// </summary>
+        /// <param name="creditCard"></param>
+        /// <param name="maskCharacter"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static string MaskCreditCard(this string creditCard, char maskCharacter = '*')
+        {
+            if (string.IsNullOrWhiteSpace(creditCard)) 
+                throw new ArgumentNullException(nameof(creditCard), "Cartão de crédito não informado.");
+            
+            var isDefault = (creditCard.Where(char.IsDigit).ToArray().Length == 16 && creditCard.Split(' ').Length == 4);
+            var isAmex = (creditCard.Where(char.IsDigit).ToArray().Length == 15 && creditCard.Split(' ').Length == 3);
+            var isDinersClub = (creditCard.Where(char.IsDigit).ToArray().Length == 14 && creditCard.Split(' ').Length == 3);
+
+            if (!isDefault && !isDinersClub && !isAmex) 
+                throw new ArgumentException("Cartão de crédito inválido.");
+
+            Span<char> result = creditCard.Length <= 19 ? stackalloc char[creditCard.Length] : new char[creditCard.Length];
+            creditCard.AsSpan().CopyTo(result);
+
+            var maxLength = 15;
+            if (isAmex) maxLength = 14;
+            if (isDinersClub) maxLength = 13;
+
+            for (int i = 0; i < maxLength; i++)
+            {
+                if (result[i].ToString() != " ") 
+                    result[i] = maskCharacter;
+            }
             return new string(result);
         }
 

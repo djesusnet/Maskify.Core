@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maskify.Core.Libray", "Maskify.Core.Libray\Maskify.Core.Libray.csproj", "{8C2E8720-1276-4745-88C3-7F20500475A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maskfy.Core.Tests", "Maskfy.Core.Tests\Maskfy.Core.Tests.csproj", "{64018C2A-9F40-4F44-8DB5-C22B2B050874}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8C2E8720-1276-4745-88C3-7F20500475A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2E8720-1276-4745-88C3-7F20500475A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2E8720-1276-4745-88C3-7F20500475A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64018C2A-9F40-4F44-8DB5-C22B2B050874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64018C2A-9F40-4F44-8DB5-C22B2B050874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64018C2A-9F40-4F44-8DB5-C22B2B050874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64018C2A-9F40-4F44-8DB5-C22B2B050874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
