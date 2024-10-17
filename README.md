@@ -10,10 +10,11 @@
 
 ## Features
 
-- **CPF Masking**: Masks CPF numbers, with or without formatting.
-- **CNPJ Masking**: Supports CNPJ formatting, allowing input with or without mask.
-- **Email Masking**: Partially hides email addresses, preserving domain integrity.
-- **Generic Masking Method**: Allows you to mask any type of sensitive data, such as phone numbers, addresses, and more.
+- **CPF masking**: Masks CPF numbers, with or without formatting.
+- **CNPJ masking**: Supports CNPJ formatting, allowing input with or without mask.
+- **Email masking**: Partially hides email addresses, preserving domain integrity.
+- **Credit card masking**: Allows partial masking of credit card numbers, displaying only the necessary digits for identification while keeping the others protected for enhanced security.
+- **Generic masking method**: Allows you to mask any type of sensitive data, such as phone numbers, addresses, and more.
 
 ## Installation
 
@@ -54,10 +55,36 @@ using Maskify;
 
 string email = "user@example.com";
 string maskedEmail = Masker.MaskEmail(email);
-Console.WriteLine(maskedEmail); // Output: use****@example.com
+Console.WriteLine(maskedEmail); // Output: u**@example.com
 ```
 
-### 4. Mask Any Other Data
+### 4. Mask credit card
+
+#### Visa, Mastercard and others
+
+```csharp
+string creditCard = "1122 3344 5566 7788"
+string maskedCreditCard = Masker.MaskCreditCard(creditCard);
+Console.WriteLine(maskedCreditCard); // Output: **** **** **** 7788
+```
+
+#### American Express
+
+```csharp
+string creditCard = "1122 334455 66777";
+string maskedCreditCard = Masker.MaskCreditCard(creditCard);
+Console.WriteLine(maskedCreditCard); // Output: **** ****** **777
+```
+
+#### Diners Club
+
+```csharp
+string creditCard = "1122 334455 6677";
+string maskedCreditCard = Masker.MaskCreditCard(creditCard);
+Console.WriteLine(maskedCreditCard); // Output: **** ****** *677
+```
+
+### 5. Mask Any Other Data
 
 In addition to specific methods for CPF, CNPJ, and email, you can mask any type of data using the generic method:
 
@@ -65,8 +92,8 @@ In addition to specific methods for CPF, CNPJ, and email, you can mask any type 
 using Maskify;
 
 string sensitiveData = "My confidential info";
-string maskedData = Masker.Mask(sensitiveData, 5, 3, '*');
-Console.WriteLine(maskedData); // Output: ***** confidential ****
+string maskedData = Masker.Mask(sensitiveData, 3, 12, '*');
+Console.WriteLine(maskedData); // Output: My ************ info
 ```
 
 **Parameters**:
