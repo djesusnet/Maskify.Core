@@ -1,6 +1,4 @@
-using Maskify.Core;
-
-namespace Maskfy.Core.Tests;
+namespace Maskify.Core.Tests;
 
 public class MaskerTests
 {
