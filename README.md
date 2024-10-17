@@ -35,7 +35,8 @@ You can also visit the [NuGet page](https://www.nuget.org/packages/Maskify.Core/
 Mask Brazilian CPF numbers, allowing input with or without formatting:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 string cpf = "123.456.789-10";
 string maskedCpf = Masker.MaskCPF(cpf);
@@ -47,7 +48,8 @@ Console.WriteLine(maskedCpf); // Output: ***.***.***-10
 Supports masking of CNPJ numbers, accepting both formatted and unformatted inputs:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 string cnpj = "12.345.678/0001-99";
 string maskedCnpj = Masker.MaskCNPJ(cnpj);
@@ -59,7 +61,8 @@ Console.WriteLine(maskedCnpj); // Output: **.***.***/0001-99
 Partially hide sensitive portions of email addresses, preserving the domain:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 string email = "user@example.com";
 string maskedEmail = Masker.MaskEmail(email);
@@ -71,7 +74,8 @@ Console.WriteLine(maskedEmail); // Output: use****@example.com
 Mask credit card numbers, including support for standard, Amex, and Diners Club cards:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 // Masking a standard 16-digit card
 string maskedCreditCard = "1234 5678 9012 3456".MaskCreditCard();
@@ -91,7 +95,8 @@ Console.WriteLine(maskedDinersClub); // Output: "**** **** **67 89"
 Use the generic method to mask any sensitive data, such as phone numbers or custom fields:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 string sensitiveData = "Sensitive Info";
 string maskedData = Masker.Mask(sensitiveData, 3, 4, '*');
@@ -108,7 +113,8 @@ In this example:
 You can fully customize the masking behavior by specifying the number of characters to keep visible at both the start and end of the string, as well as the masking symbol:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 string phoneNumber = "555-1234-5678";
 string maskedPhone = Masker.Mask(phoneNumber, 4, 3, '#');
@@ -129,7 +135,8 @@ Added support for masking different types of credit cards:
 Example for credit card masking:
 
 ```csharp
-using Maskify;
+
+using Maskify.Core;
 
 // Masking a standard credit card
 string maskedCard = "4111 1111 1111 1111".MaskCreditCard();
