@@ -1,7 +1,7 @@
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace Maskify.Core.Libray;
+namespace Maskify.Core;
 
 internal static class MaskerHelper
 {
