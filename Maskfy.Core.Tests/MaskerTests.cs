@@ -1,4 +1,4 @@
-using Maskify.Core.Libray;
+using Maskify.Core;
 
 namespace Maskfy.Core.Tests;
 

@@ -1,4 +1,4 @@
-﻿namespace Maskify.Core.Libray
+﻿namespace Maskify.Core
 {
     public static class Masker
     {

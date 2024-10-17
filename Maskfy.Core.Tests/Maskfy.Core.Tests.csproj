@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Maskify.Core.Libray\Maskify.Core.Libray.csproj" />
+      <ProjectReference Include="..\Maskify.Core\Maskify.Core.csproj" />
     </ItemGroup>
 
 </Project>
