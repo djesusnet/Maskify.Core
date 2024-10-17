@@ -1,36 +1,38 @@
 # Maskify - Sensitive Data Masking Library
 
-![Maskify menor](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
+![Maskify Logo](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
 
 *A simple, powerful, and efficient way to mask sensitive data.*
 
-**Maskify** is a powerful and easy-to-use library for masking sensitive data such as Brazilian documents (CPF, CNPJ) and emails. It also allows you to mask any other type of information through highly customizable, generic methods.
+**Maskify** is a comprehensive library designed to provide seamless masking of sensitive data such as Brazilian documents (CPF, CNPJ), emails, and other customizable data types. Built for performance and flexibility, it ensures that confidential information is protected according to best practices, making it ideal for compliance with regulations like LGPD.
+
+## Version History
 
 [![NuGet Version](https://img.shields.io/nuget/v/Maskify.Core.svg?style=flat-square&label=NuGet)](https://www.nuget.org/packages/Maskify.Core/1.0.0)
 
-## Features
+## Key Features
 
-- **CPF Masking**: Masks CPF numbers, with or without formatting.
-- **CNPJ Masking**: Supports CNPJ formatting, allowing input with or without mask.
-- **Email Masking**: Partially hides email addresses, preserving domain integrity.
-- **Generic Masking Method**: Allows you to mask any type of sensitive data, such as phone numbers, addresses, and more.
+- **CPF Masking**: Effortlessly masks CPF numbers, whether formatted or not.
+- **CNPJ Masking**: Fully supports CNPJ with or without pre-existing formatting.
+- **Email Masking**: Partially hides email addresses while retaining domain integrity.
+- **Generic Masking Method**: Adaptable to mask any sensitive data like phone numbers, addresses, or custom fields.
 
 ## Installation
 
-You can install the package directly from NuGet:
+You can easily install Maskify via NuGet:
 
 ```bash
 dotnet add package Maskify
 ```
 
-Or visit the NuGet package page: [Maskify.Core on NuGet](https://www.nuget.org/packages/Maskify.Core/1.0.0)
+Alternatively, you can visit the [Maskify.Core page on NuGet](https://www.nuget.org/packages/Maskify.Core/1.0.0).
 
-## Usage
+## How to Use
 
 ### 1. Mask CPF
 
 ```csharp
-using Maskify;
+using Maskify.Core;
 
 string cpf = "000.000.000-00";
 string maskedCpf = Masker.MaskCPF(cpf);
@@ -50,37 +52,92 @@ Console.WriteLine(maskedCnpj); // Output: **.***.***/****-00
 ### 3. Mask Email
 
 ```csharp
-using Maskify;
+using Maskify.Core;
 
 string email = "user@example.com";
 string maskedEmail = Masker.MaskEmail(email);
 Console.WriteLine(maskedEmail); // Output: use****@example.com
 ```
 
-### 4. Mask Any Other Data
-
-In addition to specific methods for CPF, CNPJ, and email, you can mask any type of data using the generic method:
+### 4. Mask Credit Cards
 
 ```csharp
-using Maskify;
+using Maskify.Core;
+
+// Masking a standard 16-digit card
+string maskedCreditCard = "1234 5678 9012 3456".MaskCreditCard();
+// Output: "**** **** **** 3456"
+
+// Masking an American Express card (15 digits)
+string maskedAmex = "3782 822463 10005".MaskCreditCard('#');
+// Output: "#### ###### #0005"
+```
+
+### 5. Mask Any Custom Data
+
+For other sensitive data, you can leverage the generic masking method:
+
+```csharp
+using Maskify.Core;
 
 string sensitiveData = "My confidential info";
 string maskedData = Masker.Mask(sensitiveData, 5, 3, '*');
 Console.WriteLine(maskedData); // Output: ***** confidential ****
 ```
 
-**Parameters**:
-- **`char`**: Character used for masking (e.g., `*` or `#`).
-- **`startPosition`**: Number of characters to keep visible at the start.
-- **`length`**: Number of characters to mask after the start position.
+- **Parameters**:
+  - `startPosition`: Number of characters to remain visible at the start.
+  - `length`: Number of characters to mask after the start position.
+  - `char`: The character used for masking (e.g., `*` or `#`).
 
 ## Customization
 
-You can customize the mask character, the number of visible digits, and much more. This makes **Maskify** a flexible solution for your data protection needs.
+Maskify offers flexible masking options, allowing you to control:
+- The masking character (e.g., `*` or `#`).
+- The number of visible characters at the start and end.
+- Whether the input is already formatted or raw (e.g., unmasked CPF/CNPJ).
+
+This makes it a versatile library for various use cases, from logging to data anonymization.
 
 ## Contributing
 
-Feel free to contribute to the project by submitting pull requests or issues on our [GitHub repository]([https://github.com/seu-repositorio](https://github.com/djesusnet/Maskify.Core.Libray)). We welcome contributions that improve performance, add new features, or enhance the documentation.
+We welcome contributions to **Maskify**! Whether it’s bug fixes, performance improvements, or new features, feel free to submit issues and pull requests via our [GitHub repository](https://github.com/djesusnet/Maskify.Core.Library).
+
+---
+
+[![NuGet](https://img.shields.io/nuget/v/Maskify.Core.svg)](https://www.nuget.org/packages/Maskify.Core/)
+
+### Latest Release: v1.1.1 (October 2024)
+
+#### New Features:
+- Added support for **credit card masking**, including validation and masking for:
+  - Standard 16-digit cards
+  - American Express (Amex) 15-digit cards
+  - Diners Club 14-digit cards
+ 
+
+### 5. Mask Credit Card
+
+```csharp
+using Maskify.Core;
+
+// Masking a standard 16-digit card
+string maskedCreditCard = "1234 5678 9012 3456".MaskCreditCard();
+// Output: "**** **** **** 3456"
+
+// Masking an American Express card (15 digits)
+string maskedAmex = "3782 822463 10005".MaskCreditCard('#');
+// Output: "#### ###### #0005"
+```
+
+
+#### Improvements:
+- Improved handling of **CPF** and **CNPJ** inputs to accept both formatted and raw data.
+  
+#### Bug Fixes:
+- Fixed email masking inconsistencies across different formats.
+
+---
 
 ## License
 
