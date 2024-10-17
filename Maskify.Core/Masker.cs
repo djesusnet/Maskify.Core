@@ -12,7 +12,8 @@
         /// <returns></returns>
         public static string Mask(this string input, int startPosition, int length, char maskCharacter = '*')
         {
-            if (input == null) throw new ArgumentNullException(nameof(input));
+            if (string.IsNullOrWhiteSpace(input)) 
+                throw new ArgumentNullException(nameof(input), "No data was provided for masking");
             if (startPosition < 0 || startPosition >= input.Length) throw new ArgumentOutOfRangeException(nameof(startPosition));
             if (length <= 0 || startPosition + length > input.Length) throw new ArgumentOutOfRangeException(nameof(length));
 
@@ -56,7 +57,7 @@
                 cpfDigits[i] = maskCharacter;
             }
 
-            return ConvertToCpfFormat(cpfDigits);
+            return MaskerHelper.ConvertToCpfFormat(cpfDigits);
         }
 
         /// <summary>
@@ -86,7 +87,7 @@
                 cnpjDigits[i] = maskCharacter;
             }
 
-            return ConvertToCnpjFormat(cnpjDigits);
+            return MaskerHelper.ConvertToCnpjFormat(cnpjDigits);
         }
 
         /// <summary>
@@ -97,12 +98,16 @@
         /// <returns></returns>
         public static string MaskEmail(this string email, char maskCharacter = '*')
         {
-            if (string.IsNullOrEmpty(email) || !email.Contains("@")) throw new ArgumentException("Email inválido.");
-            var atPosition = email.IndexOf("@");
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException(nameof(email), "E-mail não informado");
+            if (!MaskerHelper.EmailTryParse(email.AsSpan(), out string emailParsed)) 
+                throw new ArgumentException("E-mail inválido.");
+            
+            var atPosition = emailParsed.IndexOf("@", StringComparison.Ordinal);
 
             // Usa Span para manipular o email diretamente
-            Span<char> result = email.Length <= 128 ? stackalloc char[email.Length] : new char[email.Length];
-            email.AsSpan().CopyTo(result);
+            Span<char> result = emailParsed.Length <= 128 ? stackalloc char[emailParsed.Length] : new char[emailParsed.Length];
+            emailParsed.AsSpan().CopyTo(result);
 
             // Aplica a máscara no nome do e-mail
             for (int i = 1; i < atPosition - 1; i++)
@@ -146,64 +151,6 @@
                     result[i] = maskCharacter;
             }
             return new string(result);
-        }
-
-        /// <summary>
-        /// Função auxiliar para formatar CPF
-        /// </summary>
-        /// <param name="cpf"></param>
-        /// <returns></returns>
-        private static string ConvertToCpfFormat(Span<char> cpf)
-        {
-            Span<char> formattedCpf = stackalloc char[14]; // Exemplo: 000.000.000-00
-
-            formattedCpf[0] = cpf[0];
-            formattedCpf[1] = cpf[1];
-            formattedCpf[2] = cpf[2];
-            formattedCpf[3] = '.';
-            formattedCpf[4] = cpf[3];
-            formattedCpf[5] = cpf[4];
-            formattedCpf[6] = cpf[5];
-            formattedCpf[7] = '.';
-            formattedCpf[8] = cpf[6];
-            formattedCpf[9] = cpf[7];
-            formattedCpf[10] = cpf[8];
-            formattedCpf[11] = '-';
-            formattedCpf[12] = cpf[9];
-            formattedCpf[13] = cpf[10];
-
-            return new string(formattedCpf);
-        }
-
-        /// <summary>
-        /// Função auxiliar para formatar CNPJ
-        /// </summary>
-        /// <param name="cnpj"></param>
-        /// <returns></returns>
-        private static string ConvertToCnpjFormat(Span<char> cnpj)
-        {
-            Span<char> formattedCnpj = stackalloc char[18]; // Exemplo: 00.000.000/0000-00
-
-            formattedCnpj[0] = cnpj[0];
-            formattedCnpj[1] = cnpj[1];
-            formattedCnpj[2] = '.';
-            formattedCnpj[3] = cnpj[2];
-            formattedCnpj[4] = cnpj[3];
-            formattedCnpj[5] = cnpj[4];
-            formattedCnpj[6] = '.';
-            formattedCnpj[7] = cnpj[5];
-            formattedCnpj[8] = cnpj[6];
-            formattedCnpj[9] = cnpj[7];
-            formattedCnpj[10] = '/';
-            formattedCnpj[11] = cnpj[8];
-            formattedCnpj[12] = cnpj[9];
-            formattedCnpj[13] = cnpj[10];
-            formattedCnpj[14] = cnpj[11];
-            formattedCnpj[15] = '-';
-            formattedCnpj[16] = cnpj[12];
-            formattedCnpj[17] = cnpj[13];
-
-            return new string(formattedCnpj);
         }
     }
 }
