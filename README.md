@@ -1,7 +1,3 @@
-Aqui está um README mais abrangente para o pacote NuGet do **Maskify**, cobrindo todas as funcionalidades:
-
----
-
 # Maskify - Sensitive Data Masking Library
 [![NuGet Version](https://img.shields.io/nuget/v/Maskify.Core.svg?style=flat-square&label=NuGet)](https://www.nuget.org/packages/Maskify.Core/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Maskify.Core.svg?style=flat-square)](https://www.nuget.org/packages/Maskify.Core/)
@@ -164,7 +160,3 @@ We welcome all contributions! Whether you want to fix a bug, improve performance
 ## License
 
 This project is licensed under the terms of the [MIT License](LICENSE).
-
----
-
-This README provides a comprehensive overview of **Maskify**, ensuring that users and developers understand its core functionalities, installation, and usage in various scenarios.
