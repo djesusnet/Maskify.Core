@@ -152,5 +152,61 @@
             }
             return new string(result);
         }
+
+        /// <summary>
+        /// Método para mascarar telefone celular (9 dígitos)
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="maskCharacter"></param>
+        /// <returns></returns>
+        public static string MaskMobilePhone(this string phone, char maskCharacter = '*')
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new ArgumentNullException(nameof(phone), "Telefone não informado");
+
+            // Remove qualquer formatação (parênteses, hífen, espaços) usando Span
+            Span<char> phoneDigits = stackalloc char[11]; // 11 dígitos no máximo (incluindo o DDD)
+            int index = 0;
+            foreach (var c in phone)
+            {
+                if (char.IsDigit(c) && index < 11)
+                    phoneDigits[index++] = c;
+            }
+
+            // Valida se o telefone tem 11 dígitos (celular)
+            if (index != 11)
+                throw new ArgumentException("O telefone celular deve ter 11 dígitos (9 dígitos + DDD).");
+
+            // Formata e aplica a máscara no telefone celular
+            return MaskerHelper.ConvertToMobilePhoneFormat(phoneDigits, maskCharacter);
+        }
+
+        /// <summary>
+        /// Método para mascarar telefone residencial (8 dígitos)
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="maskCharacter"></param>
+        /// <returns></returns>
+        public static string MaskResidentialPhone(this string phone, char maskCharacter = '*')
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new ArgumentNullException(nameof(phone), "Telefone não informado");
+
+            // Remove qualquer formatação (parênteses, hífen, espaços) usando Span
+            Span<char> phoneDigits = stackalloc char[10]; // 10 dígitos no máximo (incluindo o DDD)
+            int index = 0;
+            foreach (var c in phone)
+            {
+                if (char.IsDigit(c) && index < 10)
+                    phoneDigits[index++] = c;
+            }
+
+            // Valida se o telefone tem 10 dígitos (residencial)
+            if (index != 10)
+                throw new ArgumentException("O telefone residencial deve ter 10 dígitos (8 dígitos + DDD).");
+
+            // Formata e aplica a máscara no telefone residencial
+            return MaskerHelper.ConvertToResidentialPhoneFormat(phoneDigits, maskCharacter);
+        }
     }
 }

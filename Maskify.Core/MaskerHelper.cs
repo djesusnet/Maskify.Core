@@ -98,4 +98,61 @@ internal static class MaskerHelper
         var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(email.ToString(), pattern);
     }
+
+    /// <summary>
+    /// // Função auxiliar para formatar telefone celular
+    /// </summary>
+    /// <param name="phone"></param>
+    /// <param name="maskCharacter"></param>
+    /// <returns></returns>
+    public static string ConvertToMobilePhoneFormat(ReadOnlySpan<char> phone, char maskCharacter)
+    {
+        Span<char> formattedPhone = stackalloc char[15]; // Exemplo: (00) 90000-0000
+
+        formattedPhone[0] = '(';
+        formattedPhone[1] = phone[0];
+        formattedPhone[2] = phone[1];
+        formattedPhone[3] = ')';
+        formattedPhone[4] = ' ';
+        formattedPhone[5] = phone[2]; 
+        formattedPhone[6] = maskCharacter; 
+        formattedPhone[7] = maskCharacter;
+        formattedPhone[8] = maskCharacter;
+        formattedPhone[9] = maskCharacter;
+        formattedPhone[10] = '-';
+        formattedPhone[11] = phone[7]; 
+        formattedPhone[12] = phone[8];
+        formattedPhone[13] = phone[9];
+        formattedPhone[14] = phone[10];
+
+        return new string(formattedPhone);
+    }
+
+    /// <summary>
+    /// Função auxiliar para formatar telefone residencial
+    /// </summary>
+    /// <param name="phone"></param>
+    /// <param name="maskCharacter"></param>
+    /// <returns></returns>
+    public static string ConvertToResidentialPhoneFormat(ReadOnlySpan<char> phone, char maskCharacter)
+    {
+        Span<char> formattedPhone = stackalloc char[14]; // Exemplo: (00) 0000-0000
+
+        formattedPhone[0] = '(';
+        formattedPhone[1] = phone[0];
+        formattedPhone[2] = phone[1];
+        formattedPhone[3] = ')';
+        formattedPhone[4] = ' ';
+        formattedPhone[5] = phone[2]; // Primeiro dígito do telefone fixo
+        formattedPhone[6] = maskCharacter; // Mascara parte do telefone
+        formattedPhone[7] = maskCharacter;
+        formattedPhone[8] = maskCharacter;
+        formattedPhone[9] = maskCharacter;
+        formattedPhone[10] = '-';
+        formattedPhone[11] = phone[6]; // Últimos 4 dígitos visíveis
+        formattedPhone[12] = phone[7];
+        formattedPhone[13] = phone[8];
+
+        return new string(formattedPhone);
+    }
 }
