@@ -145,8 +145,6 @@ Console.WriteLine(maskedCard); // Output: **** **** **** 1111
 
 ## Version History
 
-[![NuGet Version](https://img.shields.io/nuget/v/Maskify.Core.svg)](https://www.nuget.org/packages/Maskify.Core/)
-
 ### v1.1.1 (October 2024)
 
 #### New Features:
