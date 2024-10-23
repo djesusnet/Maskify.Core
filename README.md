@@ -156,7 +156,7 @@ Console.WriteLine(maskedCard); // Output: **** **** **** 1111
 #### Bug Fixes:
 - Fixed inconsistencies in email masking patterns for various formats.
 
-### v1.2.0 (October 2024) -  Deprecation
+### v1.2.1 (October 2024) -  (Latest)
 
 Version 1.2.0 introduces a powerful new feature: the **MaskSensitiveData** DataAnnotation. This allows developers to apply masking directly to properties within their classes, making it easier to protect sensitive information such as CPF, CNPJ, Credit Card numbers, and Emails.
 
@@ -189,10 +189,6 @@ public class Client
 }
 ```
 
-### v1.2.1 (October 2024) -  (Latest)
-
-### Bug Fix
-- **v1.2.1**: Fixed an issue where the `DataType` was not being correctly found within the `MaskSensitiveDataAttribute`. This resolves compatibility issues and ensures smoother integration when applying the DataAnnotation to properties.
 ---
 
 ## Contributing
