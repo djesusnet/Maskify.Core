@@ -143,15 +143,15 @@ internal static class MaskerHelper
         formattedPhone[2] = phone[1];
         formattedPhone[3] = ')';
         formattedPhone[4] = ' ';
-        formattedPhone[5] = phone[2]; // Primeiro dígito do telefone fixo
-        formattedPhone[6] = maskCharacter; // Mascara parte do telefone
+        formattedPhone[5] = maskCharacter; // Mascara parte do telefone
+        formattedPhone[6] = maskCharacter;
         formattedPhone[7] = maskCharacter;
         formattedPhone[8] = maskCharacter;
-        formattedPhone[9] = maskCharacter;
-        formattedPhone[10] = '-';
-        formattedPhone[11] = phone[6]; // Últimos 4 dígitos visíveis
-        formattedPhone[12] = phone[7];
-        formattedPhone[13] = phone[8];
+        formattedPhone[9] = '-';
+        formattedPhone[10] = phone[6]; // Últimos 4 dígitos visíveis
+        formattedPhone[11] = phone[7];
+        formattedPhone[12] = phone[8];
+        formattedPhone[13] = phone[9];
 
         return new string(formattedPhone);
     }

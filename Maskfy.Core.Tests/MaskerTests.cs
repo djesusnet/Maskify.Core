@@ -120,7 +120,91 @@ public class MaskerTests
         var result = email.MaskEmail();
         Assert.Equal(maskedEmail, result);
     }
-    
+
+    [Theory]
+    [InlineData("(11) 91234-5678", "(11) 9****-5678")]
+    [InlineData("(21) 98765-4321", "(21) 9****-4321")]
+    public void MaskMobilePhone_ShouldMaskCorrectly(string phone, string expectedMasked)
+    {
+        // Act
+        string maskedPhone = phone.MaskMobilePhone();
+
+        // Assert
+        Assert.Equal(expectedMasked, maskedPhone);
+    }
+
+    [Theory]
+    [InlineData("(11) 2345-6789", "(11) ****-6789")]
+    [InlineData("(21) 3456-7890", "(21) ****-7890")]
+    public void MaskResidentialPhone_ShouldMaskCorrectly(string phone, string expectedMasked)
+    {
+        // Act
+        string maskedPhone = phone.MaskResidentialPhone();
+
+        // Assert
+        Assert.Equal(expectedMasked, maskedPhone);
+    }
+
+    [Theory]
+    [InlineData("390.851.118-62", "390.***.**8-62")]
+    [InlineData("123.456.789-10", "123.***.**9-10")]
+    public void MaskCPF_ShouldMaskCorrectly(string cpf, string expectedMasked)
+    {
+        // Act
+        string maskedCPF = cpf.MaskCPF();
+
+        // Assert
+        Assert.Equal(expectedMasked, maskedCPF);
+    }
+
+    [Theory]
+    [InlineData("12.345.678/0001-95", "12.***.***/**01-95")]
+    [InlineData("98.765.432/0001-12", "98.***.***/**01-12")]
+    public void MaskCNPJ_ShouldMaskCorrectly(string cnpj, string expectedMasked)
+    {
+        // Act
+        string maskedCNPJ = cnpj.MaskCNPJ();
+
+        // Assert
+        Assert.Equal(expectedMasked, maskedCNPJ);
+    }
+
+    [Theory]
+    [InlineData("(11) 12345-678")]
+    [InlineData("91234-5678")]
+    public void MaskMobilePhone_ShouldThrowException_WhenPhoneIsInvalid(string invalidPhone)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => invalidPhone.MaskMobilePhone());
+    }
+
+    [Theory]
+    [InlineData("(11) 123-4567")]
+    [InlineData("2345-678")]
+    public void MaskResidentialPhone_ShouldThrowException_WhenPhoneIsInvalid(string invalidPhone)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => invalidPhone.MaskResidentialPhone());
+    }
+
+    [Theory]
+    [InlineData("123.456.789-0")]
+    [InlineData("987.654.321-9")]
+    public void MaskCPF_ShouldThrowException_WhenCPFIsInvalid(string invalidCPF)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => invalidCPF.MaskCPF());
+    }
+
+    [Theory]
+    [InlineData("12.345.678/000-95")]
+    [InlineData("98.765.432/0001-1")]
+    public void MaskCNPJ_ShouldThrowException_WhenCNPJIsInvalid(string invalidCNPJ)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => invalidCNPJ.MaskCNPJ());
+    }
+
     [Theory]
     [InlineData("", 10, 5)]
     [InlineData(" ", 5, 9)]
