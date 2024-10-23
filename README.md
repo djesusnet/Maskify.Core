@@ -4,7 +4,7 @@
 
 ![Maskify Logo](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
 
-**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD.
+**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, mobile and residential phones, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD.
 
 ## Key Features
 
@@ -15,6 +15,8 @@
   - Standard 16-digit cards.
   - American Express (15 digits).
   - Diners Club (14 digits).
+- **Mobile Phone Masking**: Securely masks mobile phone numbers (9 digits) while keeping the area code (DDD) and the last 4 digits visible.
+- **Residential Phone Masking**: Masks residential (landline) phone numbers (8 digits) while keeping the area code (DDD) and the last 4 digits visible.
 - **Generic Masking Method**: Enables masking of any sensitive data (e.g., phone numbers, addresses) with full control over visible characters and masking character.
 - **Customizable Masking**: Define your own masking rules by selecting the number of visible characters and masking symbols (e.g., `*`, `#`).
 
@@ -90,7 +92,33 @@ string maskedDinersClub = "3056 9304 5567 89".MaskCreditCard();
 Console.WriteLine(maskedDinersClub); // Output: "**** **** **67 89"
 ```
 
-### 5. Mask Custom Data
+### 5. Mask Mobile Phone
+
+Mask Brazilian mobile phone numbers (with 9 digits), maintaining the area code (DDD) and the last 4 digits visible:
+
+```csharp
+
+using Maskify.Core;
+
+string mobilePhone = "(11) 91234-5678";
+string maskedMobilePhone = mobilePhone.MaskMobilePhone();
+Console.WriteLine(maskedMobilePhone); // Output: (11) 9****-5678
+```
+
+### 6. Mask Residential Phone
+
+Mask Brazilian residential (landline) phone numbers (with 8 digits), maintaining the area code (DDD) and the last 4 digits visible:
+
+```csharp
+
+using Maskify.Core;
+
+string residentialPhone = "(11) 2345-6789";
+string maskedResidentialPhone = residentialPhone.MaskResidentialPhone();
+Console.WriteLine(maskedResidentialPhone); // Output: (11) ****-6789
+```
+
+### 7. Mask Custom Data
 
 Use the generic method to mask any sensitive data, such as phone numbers or custom fields:
 
@@ -108,86 +136,66 @@ In this example:
 - **`length`** defines the number of characters to mask after the start position.
 - **`char`** is the character used to mask the sensitive portion (e.g., `*`, `#`).
 
-### 6. Customizable Masking
+## New Features (v1.3.0)
 
-You can fully customize the masking behavior by specifying the number of characters to keep visible at both the start and end of the string, as well as the masking symbol:
+Version 1.3.0 introduces powerful new features:
 
-```csharp
+### 1. `MaskSensitiveData` DataAnnotation Support
 
-using Maskify.Core;
+With **Maskify** v1.3.0, you can now use **DataAnnotations** to mask sensitive data directly in your classes. This is perfect for easily securing sensitive fields in your application models such as CPF, CNPJ, credit card numbers, emails, and phone numbers (both mobile and residential).
 
-string phoneNumber = "555-1234-5678";
-string maskedPhone = Masker.Mask(phoneNumber, 4, 3, '#');
-Console.WriteLine(maskedPhone); // Output: 555-#######5678
-```
-
-## Advanced Features (v1.1.1)
-
-With the latest version of **Maskify** (v1.1.1), new functionality has been added:
-
-### Credit Card Masking
-
-Added support for masking different types of credit cards:
-- **Standard 16-digit cards**: Common format used by Visa, MasterCard, etc.
-- **American Express (Amex)**: 15-digit cards, with specific masking rules.
-- **Diners Club**: 14-digit cards.
-
-Example for credit card masking:
-
-```csharp
-
-using Maskify.Core;
-
-// Masking a standard credit card
-string maskedCard = "4111 1111 1111 1111".MaskCreditCard();
-Console.WriteLine(maskedCard); // Output: **** **** **** 1111
-```
-
-## Version History
-
-### v1.1.1 (October 2024)
-
-#### New Features:
-- **Credit Card Masking**: Supports standard 16-digit, Amex 15-digit, and Diners Club 14-digit card formats.
-  
-#### Improvements:
-- Improved handling of CPF and CNPJ inputs, now accepting both formatted and unformatted data.
-  
-#### Bug Fixes:
-- Fixed inconsistencies in email masking patterns for various formats.
-
-### v1.2.1 (October 2024) -  (Latest)
-
-Version 1.2.0 introduces a powerful new feature: the **MaskSensitiveData** DataAnnotation. This allows developers to apply masking directly to properties within their classes, making it easier to protect sensitive information such as CPF, CNPJ, Credit Card numbers, and Emails.
-
-## Features
-
-- **DataAnnotations Support**: Mask sensitive data fields directly with the `MaskSensitiveData` attribute.
-- **Flexible Masking**: Customize the masking character and define error messages.
-- **Data Types Supported**: CPF, CNPJ, Credit Card, Email, with more to come.
-
-## Usage Example
-
-Here is an example of how to use the new `MaskSensitiveData` DataAnnotation in your .NET project:
+#### Example:
 
 ```csharp
 using Maskify.Core.Annotations;
 
-public class Client
+public class Cliente
 {
-    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CPF, MaskCharacter = '#', ErrorMessage = "The provided CPF is incorrect.")]
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CPF, MaskCharacter = '#', ErrorMessage = "O CPF informado está incorreto.")]
     public string CPF { get; set; }
 
-    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CNPJ, MaskCharacter = '*', ErrorMessage = "The provided CNPJ is incorrect.")]
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CNPJ, MaskCharacter = '*', ErrorMessage = "O CNPJ informado está incorreto.")]
     public string CNPJ { get; set; }
 
-    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CreditCard, MaskCharacter = '*', ErrorMessage = "The credit card number is incorrect.")]
-    public string CreditCard { get; set; }
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CartaoCredito, MaskCharacter = '*', ErrorMessage = "O número do cartão de crédito está incorreto.")]
+    public string CartaoCredito { get; set; }
 
-    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.Email, MaskCharacter = '*', ErrorMessage = "The email is incorrect.")]
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.Email, MaskCharacter = '*', ErrorMessage = "O e-mail está incorreto.")]
     public string Email { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.ResidentialPhone, MaskCharacter = '*', ErrorMessage = "O telefone está incorreto.")]
+    public string Telefone { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.MobilePhone, MaskCharacter = '*', ErrorMessage = "O telefone celular está incorreto.")]
+    public string Celular { get; set; }
 }
 ```
+
+### 2. Custom Masking Rules
+
+In this version, you can create custom masking rules using the `MaskSensitiveData` attribute, specifying how many characters should remain unmasked and choosing a custom masking character.
+
+### 3. Mobile & Residential Phone Masking
+
+In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now supports:
+- **Mobile Phone Masking**: Supports Brazilian mobile numbers (9 digits) while keeping the DDD and last 4 digits visible.
+- **Residential Phone Masking**: Supports Brazilian landline numbers (8 digits), also keeping the DDD and last 4 digits visible.
+
+## Version History
+
+### v1.3.0 (October 2024) - Latest
+
+#### New Features:
+- **DataAnnotations Support**: Easily mask fields like CPF, CNPJ, credit cards, emails, and phone numbers (mobile and residential) directly in your models using `MaskSensitiveData`.
+- **Flexible Masking**: Customize the masking character and define error messages for invalid data.
+- **Mobile & Residential Phone Masking**: Supports Brazilian phone numbers (both mobile and residential).
+
+#### Improvements:
+- Added support for formatted and unformatted CPF and CNPJ numbers.
+- Credit card masking for 16-digit, Amex (15-digit), and Diners Club (14-digit) cards.
+
+#### Bug Fixes:
+- Fixed email masking inconsistencies across various formats.
 
 ---
 
