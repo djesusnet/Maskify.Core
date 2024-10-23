@@ -3,8 +3,8 @@ name: Publish NuGet Package
 on:
   push:
     branches:
-      - main  # Ou o branch que você quer monitorar
-  workflow_dispatch: # Para executar manualmente
+      - main  # Monitor the main branch
+  workflow_dispatch: # To trigger manually
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'  # Defina a versão do .NET que você está usando
+          dotnet-version: '8.x'  # Set the .NET version
 
       - name: Restore dependencies
         run: dotnet restore
@@ -26,8 +26,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run unit tests for Maskify.Core.Tests
-        run: dotnet test ./Maskify.Core.Library/Maskify.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage"
-
+        run: dotnet test ./Maskify.Core.Libray/Maskify.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage"
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
