@@ -158,6 +158,42 @@ Console.WriteLine(maskedCard); // Output: **** **** **** 1111
 #### Bug Fixes:
 - Fixed inconsistencies in email masking patterns for various formats.
 
+### v1.2.0 (October 2024) -  Deprecation
+
+Version 1.2.0 introduces a powerful new feature: the **MaskSensitiveData** DataAnnotation. This allows developers to apply masking directly to properties within their classes, making it easier to protect sensitive information such as CPF, CNPJ, Credit Card numbers, and Emails.
+
+## Features
+
+- **DataAnnotations Support**: Mask sensitive data fields directly with the `MaskSensitiveData` attribute.
+- **Flexible Masking**: Customize the masking character and define error messages.
+- **Data Types Supported**: CPF, CNPJ, Credit Card, Email, with more to come.
+
+## Usage Example
+
+Here is an example of how to use the new `MaskSensitiveData` DataAnnotation in your .NET project:
+
+```csharp
+using Maskify.Core.Annotations;
+
+public class Client
+{
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CPF, MaskCharacter = '#', ErrorMessage = "The provided CPF is incorrect.")]
+    public string CPF { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CNPJ, MaskCharacter = '*', ErrorMessage = "The provided CNPJ is incorrect.")]
+    public string CNPJ { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CreditCard, MaskCharacter = '*', ErrorMessage = "The credit card number is incorrect.")]
+    public string CreditCard { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.Email, MaskCharacter = '*', ErrorMessage = "The email is incorrect.")]
+    public string Email { get; set; }
+}
+```
+## What's New in v1.2.1 (Latest)
+
+### Bug Fix
+- **v1.2.1**: Fixed an issue where the `DataType` was not being correctly found within the `MaskSensitiveDataAttribute`. This resolves compatibility issues and ensures smoother integration when applying the DataAnnotation to properties.
 ---
 
 ## Contributing
