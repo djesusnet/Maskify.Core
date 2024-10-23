@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run unit tests for Maskify.Core.Tests
-        run: dotnet test ../Maskify.Core/Maskify.Core.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test ./Maskify.Core.Library/Maskify.Core.Tests/Maskify.Core.Tests.csproj --configuration Release --no-build --verbosity normal
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
