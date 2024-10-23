@@ -29,7 +29,7 @@ jobs:
         run: ls -R
 
       - name: Run unit tests
-        run: dotnet test ./Maskify.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage" --verbosity normal
+        run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage"
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
