@@ -188,7 +188,8 @@ public class Client
     public string Email { get; set; }
 }
 ```
-## What's New in v1.2.1 (Latest)
+
+### v1.2.1 (October 2024) -  (Latest)
 
 ### Bug Fix
 - **v1.2.1**: Fixed an issue where the `DataType` was not being correctly found within the `MaskSensitiveDataAttribute`. This resolves compatibility issues and ensures smoother integration when applying the DataAnnotation to properties.
