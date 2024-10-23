@@ -3,8 +3,8 @@ name: Build, Test and Publish NuGet Package
 on:
   push:
     branches:
-      - main  # Define o branch que será monitorado
-  workflow_dispatch: # Permite execução manual
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,7 +17,10 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'  # Use a versão do .NET que você está utilizando
+          dotnet-version: '8.x'
+
+      - name: Install latest VSTest platform
+        run: dotnet tool install --global Microsoft.TestPlatform.CLI --version 17.12.0-preview-24453-04
 
       - name: Restore dependencies
         run: dotnet restore
@@ -25,11 +28,11 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: List project files (debugging step)
+      - name: List all project files
         run: ls -R
 
-      - name: Run unit tests and collect code coverage
-        run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage" --verbosity normal
+      - name: Run unit tests
+        run: dotnet test ./Maskify.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage" --verbosity normal
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
