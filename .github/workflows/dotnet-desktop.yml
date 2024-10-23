@@ -1,10 +1,10 @@
-name: Publish NuGet Package
+name: Build, Test and Publish NuGet Package
 
 on:
   push:
     branches:
-      - main  # Ou o branch que você quer monitorar
-  workflow_dispatch: # Para executar manualmente
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,13 +17,22 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'  # Defina a versão do .NET que você está usando
+          dotnet-version: '8.x'
+
+      - name: Install latest VSTest platform
+        run: dotnet tool install --global Microsoft.TestPlatform.CLI --version 17.12.0-preview-24453-04
 
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build project
         run: dotnet build --configuration Release --no-restore
+
+      - name: List all project files
+        run: ls -R
+
+      - name: Run unit tests
+        run: dotnet test ./Maskify.Core.Tests/Maskify.Core.Tests.csproj --no-restore --no-build --collect "XPlat Code Coverage" --verbosity normal
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
