@@ -157,7 +157,7 @@ public class Cliente
     [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CNPJ, MaskCharacter = '*', ErrorMessage = "O CNPJ informado está incorreto.")]
     public string CNPJ { get; set; }
 
-    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CartaoCredito, MaskCharacter = '*', ErrorMessage = "O número do cartão de crédito está incorreto.")]
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CreditCard, MaskCharacter = '*', ErrorMessage = "O número do cartão de crédito está incorreto.")]
     public string CartaoCredito { get; set; }
 
     [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.Email, MaskCharacter = '*', ErrorMessage = "O e-mail está incorreto.")]
@@ -183,7 +183,7 @@ In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now suppor
 
 ## Version History
 
-### v1.3.0 (October 2024) - Latest
+### v1.3.0 (October 2024)
 
 #### New Features:
 - **DataAnnotations Support**: Easily mask fields like CPF, CNPJ, credit cards, emails, and phone numbers (mobile and residential) directly in your models using `MaskSensitiveData`.
@@ -196,6 +196,17 @@ In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now suppor
 
 #### Bug Fixes:
 - Fixed email masking inconsistencies across various formats.
+
+### v1.3.1 (October 2024)
+
+Bug Fixes:
+Mobile Phone Masking Fix: Corrected an issue with the masking of Brazilian mobile phone numbers to ensure accurate formatting.
+
+### v1.3.2 (October 2024) - Latest
+
+Changes:
+
+Language Update: Adjusted texts and properties to English for better internationalization.
 
 ---
 
