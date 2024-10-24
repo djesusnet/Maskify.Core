@@ -9,7 +9,7 @@ public class MaskerTests
     public void MascararCPF_NumeroNaoInformado_RetornaException(string cpf)
     {
         var exception = Assert.Throws<ArgumentNullException>(() => cpf.MaskCPF());
-        Assert.Contains("CPF não informado", exception.Message);
+        Assert.Contains("CPF not provided.", exception.Message);
     }
     
     [Theory]
@@ -18,7 +18,7 @@ public class MaskerTests
     public void MascararCPF_NumeroFormatoInvalido_RetornaException(string cpf)
     {
         var exception = Assert.Throws<ArgumentException>(() => cpf.MaskCPF());
-        Assert.Contains("CPF deve ter 11 dígitos", exception.Message);
+        Assert.Contains("CPF must have 11 digits.", exception.Message);
     }
 
     [Theory]
@@ -37,7 +37,7 @@ public class MaskerTests
     public void MascararCNPJ_NumeroNaoInformado_RetornaException(string cnpj)
     {
         var exception = Assert.Throws<ArgumentNullException>(() => cnpj.MaskCNPJ());
-        Assert.Contains("CNPJ não informado", exception.Message);
+        Assert.Contains("CNPJ not provided", exception.Message);
     }
     
     [Theory]
@@ -46,7 +46,7 @@ public class MaskerTests
     public void MascararCNPJ_NumeroFormatoInvalido_RetornaException(string cnpj)
     {
         var exception = Assert.Throws<ArgumentException>(() => cnpj.MaskCNPJ());
-        Assert.Contains("CNPJ deve ter 14 dígitos", exception.Message);
+        Assert.Contains("CNPJ must have 14 digits.", exception.Message);
     }
 
     [Theory]
@@ -65,7 +65,7 @@ public class MaskerTests
     public void MascararCartaoCredito_NumeroNaoInformado_RetornaException(string creditCard)
     {
         var exception = Assert.Throws<ArgumentNullException>(() => creditCard.MaskCreditCard());
-        Assert.Contains("Cartão de crédito não informado", exception.Message);
+        Assert.Contains("Credit card not provided.", exception.Message);
     }
     
     [Theory]
@@ -77,7 +77,7 @@ public class MaskerTests
     public void MascararCartaoCredito_NumeroFormatoInvalido_RetornaException(string creditCard)
     {
         var exception = Assert.Throws<ArgumentException>(() => creditCard.MaskCreditCard());
-        Assert.Contains("Cartão de crédito inválido", exception.Message);
+        Assert.Contains("Invalid credit card.", exception.Message);
     }
 
     [Theory]
@@ -97,7 +97,7 @@ public class MaskerTests
     public void MascararEmail_EmailNaoInformado_RetornaException(string email)
     {
         var exception = Assert.Throws<ArgumentNullException>(() => email.MaskEmail());
-        Assert.Contains("E-mail não informado", exception.Message);
+        Assert.Contains("Email not provided.", exception.Message);
     }
 
     [Theory]
@@ -109,7 +109,7 @@ public class MaskerTests
     public void MascararEmail_EmailInvalido_RetornaException(string email)
     {
         var exception = Assert.Throws<ArgumentException>(() => email.MaskEmail());
-        Assert.Contains("E-mail inválido", exception.Message);
+        Assert.Contains("Invalid email.", exception.Message);
     }
 
     [Theory]
