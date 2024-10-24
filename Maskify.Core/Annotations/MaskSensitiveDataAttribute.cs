@@ -29,7 +29,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
             case DataType.CNPJ:
                 value2 = input.MaskCNPJ(this.MaskCharacter);
                 break;
-            case DataType.CartaoCredito:
+            case DataType.CreditCard:
                 value2 = input.MaskCreditCard(this.MaskCharacter);
                 break;
             case DataType.Email:
@@ -54,7 +54,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
     {
         CPF,
         CNPJ,
-        CartaoCredito,
+        CreditCard,
         Email,
         MobilePhone,
         ResidentialPhone
