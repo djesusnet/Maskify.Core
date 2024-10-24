@@ -38,7 +38,7 @@
         /// <returns></returns>
         public static string MaskCPF(this string cpf, char maskCharacter = '*')
         {
-            if (string.IsNullOrWhiteSpace(cpf)) throw new ArgumentNullException(nameof(cpf), "CPF não informado");
+            if (string.IsNullOrWhiteSpace(cpf)) throw new ArgumentNullException(nameof(cpf), "CPF not provided.");
             
             // Remove qualquer formatação (pontos e traços) usando Span
             Span<char> cpfDigits = stackalloc char[11];
@@ -49,7 +49,7 @@
                     cpfDigits[index++] = c;
             }
 
-            if (index != 11) throw new ArgumentException("CPF deve ter 11 dígitos.");
+            if (index != 11) throw new ArgumentException("CPF must have 11 digits.");
 
             // Aplica a máscara diretamente no span
             for (int i = 3; i < 8; i++) // Máscara no meio
@@ -68,7 +68,7 @@
         /// <returns></returns>
         public static string MaskCNPJ(this string cnpj, char maskCharacter = '*')
         {
-            if (string.IsNullOrWhiteSpace(cnpj)) throw new ArgumentNullException(nameof(cnpj), "CNPJ não informado");
+            if (string.IsNullOrWhiteSpace(cnpj)) throw new ArgumentNullException(nameof(cnpj), "CNPJ not provided.");
             
             // Remove qualquer formatação (pontos, barras e traços) usando Span
             Span<char> cnpjDigits = stackalloc char[14];
@@ -79,7 +79,7 @@
                     cnpjDigits[index++] = c;
             }
 
-            if (index != 14) throw new ArgumentException("CNPJ deve ter 14 dígitos.");
+            if (index != 14) throw new ArgumentException("CNPJ must have 14 digits.");
 
             // Aplica a máscara diretamente no span
             for (int i = 2; i < 10; i++) // Máscara no meio
@@ -99,9 +99,9 @@
         public static string MaskEmail(this string email, char maskCharacter = '*')
         {
             if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email), "E-mail não informado");
+                throw new ArgumentNullException(nameof(email), "Email not provided.");
             if (!MaskerHelper.EmailTryParse(email.AsSpan(), out string emailParsed)) 
-                throw new ArgumentException("E-mail inválido.");
+                throw new ArgumentException("Invalid email.");
             
             var atPosition = emailParsed.IndexOf("@", StringComparison.Ordinal);
 
@@ -129,14 +129,14 @@
         public static string MaskCreditCard(this string creditCard, char maskCharacter = '*')
         {
             if (string.IsNullOrWhiteSpace(creditCard)) 
-                throw new ArgumentNullException(nameof(creditCard), "Cartão de crédito não informado.");
+                throw new ArgumentNullException(nameof(creditCard), "Credit card not provided.");
             
             var isDefault = (creditCard.Where(char.IsDigit).ToArray().Length == 16 && creditCard.Split(' ').Length == 4);
             var isAmex = (creditCard.Where(char.IsDigit).ToArray().Length == 15 && creditCard.Split(' ').Length == 3);
             var isDinersClub = (creditCard.Where(char.IsDigit).ToArray().Length == 14 && creditCard.Split(' ').Length == 3);
 
             if (!isDefault && !isDinersClub && !isAmex) 
-                throw new ArgumentException("Cartão de crédito inválido.");
+                throw new ArgumentException("Invalid credit card.");
 
             Span<char> result = creditCard.Length <= 19 ? stackalloc char[creditCard.Length] : new char[creditCard.Length];
             creditCard.AsSpan().CopyTo(result);
@@ -162,7 +162,7 @@
         public static string MaskMobilePhone(this string phone, char maskCharacter = '*')
         {
             if (string.IsNullOrWhiteSpace(phone))
-                throw new ArgumentNullException(nameof(phone), "Telefone não informado");
+                throw new ArgumentNullException(nameof(phone), "Phone number not provided.");
 
             // Remove qualquer formatação (parênteses, hífen, espaços) usando Span
             Span<char> phoneDigits = stackalloc char[11]; // 11 dígitos no máximo (incluindo o DDD)
@@ -175,7 +175,7 @@
 
             // Valida se o telefone tem 11 dígitos (celular)
             if (index != 11)
-                throw new ArgumentException("O telefone celular deve ter 11 dígitos (9 dígitos + DDD).");
+                throw new ArgumentException("The mobile phone number must have 11 digits (9 digits + area code).");
 
             // Formata e aplica a máscara no telefone celular
             return MaskerHelper.ConvertToMobilePhoneFormat(phoneDigits, maskCharacter);
@@ -190,7 +190,7 @@
         public static string MaskResidentialPhone(this string phone, char maskCharacter = '*')
         {
             if (string.IsNullOrWhiteSpace(phone))
-                throw new ArgumentNullException(nameof(phone), "Telefone não informado");
+                throw new ArgumentNullException(nameof(phone), "Phone number not provided.");
 
             // Remove qualquer formatação (parênteses, hífen, espaços) usando Span
             Span<char> phoneDigits = stackalloc char[10]; // 10 dígitos no máximo (incluindo o DDD)
@@ -203,7 +203,7 @@
 
             // Valida se o telefone tem 10 dígitos (residencial)
             if (index != 10)
-                throw new ArgumentException("O telefone residencial deve ter 10 dígitos (8 dígitos + DDD).");
+                throw new ArgumentException("The landline phone number must have 10 digits (8 digits + area code).");
 
             // Formata e aplica a máscara no telefone residencial
             return MaskerHelper.ConvertToResidentialPhoneFormat(phoneDigits, maskCharacter);
