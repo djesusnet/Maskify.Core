@@ -136,13 +136,9 @@ In this example:
 - **`length`** defines the number of characters to mask after the start position.
 - **`char`** is the character used to mask the sensitive portion (e.g., `*`, `#`).
 
-## New Features (v1.3.0)
+### 8. `MaskSensitiveData` DataAnnotation Support
 
-Version 1.3.0 introduces powerful new features:
-
-### 1. `MaskSensitiveData` DataAnnotation Support
-
-With **Maskify** v1.3.0, you can now use **DataAnnotations** to mask sensitive data directly in your classes. This is perfect for easily securing sensitive fields in your application models such as CPF, CNPJ, credit card numbers, emails, and phone numbers (both mobile and residential).
+You can now use **DataAnnotations** to mask sensitive data directly in your classes. This is perfect for easily securing sensitive fields in your application models such as CPF, CNPJ, credit card numbers, emails, and phone numbers (both mobile and residential).
 
 #### Example:
 
@@ -171,11 +167,11 @@ public class Cliente
 }
 ```
 
-### 2. Custom Masking Rules
+## Custom Masking Rules
 
 In this version, you can create custom masking rules using the `MaskSensitiveData` attribute, specifying how many characters should remain unmasked and choosing a custom masking character.
 
-### 3. Mobile & Residential Phone Masking
+## Mobile & Residential Phone Masking
 
 In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now supports:
 - **Mobile Phone Masking**: Supports Brazilian mobile numbers (9 digits) while keeping the DDD and last 4 digits visible.
