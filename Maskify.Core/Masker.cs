@@ -208,5 +208,29 @@
             // Formata e aplica a máscara no telefone residencial
             return MaskerHelper.ConvertToResidentialPhoneFormat(phoneDigits, maskCharacter);
         }
+        
+        /// <summary>
+        /// Método para mascarar placas de veículos brasileiros (formato antigo e mercosul)
+        /// </summary>
+        /// <param name="licensePlate">A placa do veículo</param>
+        /// <param name="maskCharacter">O caractere de máscara</param>
+        /// <returns>A placa máscarada</returns>
+        public static string MaskLicensePlate(this string licensePlate, char maskCharacter = '*')
+        {
+            if (string.IsNullOrWhiteSpace(licensePlate))
+                throw new ArgumentNullException(nameof(licensePlate), "License plate not provided.");
+
+            // Remove qualquer formatação (hífen, espaços) usando Span
+            Span<char> cleanedLicensePlate = stackalloc char[7];
+            int length = MaskerHelper.CleanAndExtractLicensePlate(licensePlate.AsSpan(), cleanedLicensePlate);
+
+            // Valida o formato da placa
+            if (length != 7 || !MaskerHelper.IsValidPlateFormat(cleanedLicensePlate))
+                throw new ArgumentException("Invalid license plate format.");
+            
+            // Aplica a máscara
+            MaskerHelper.ApplyMask(cleanedLicensePlate, maskCharacter, 3, 4);
+            return new string(cleanedLicensePlate);
+        }
     }
 }

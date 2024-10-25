@@ -155,4 +155,42 @@ internal static class MaskerHelper
 
         return new string(formattedPhone);
     }
+    
+    /// <summary>
+    /// Função auxiliar para remover caracteres não alfanuméricos e normaliza a placa.
+    /// </summary>
+    /// <param name="licensePlate">A placa do veículo</param>
+    /// <param name="cleanedLicensePlate">Usado para armazenar os caracteres válidos </param>
+    /// <returns>Retorna quantos caracteres válidos foram extraídos e armazenados na variável cleanedPlate</returns>
+    public static int CleanAndExtractLicensePlate(ReadOnlySpan<char> licensePlate, Span<char> cleanedLicensePlate)
+    {
+        int index = 0;
+        foreach (var c in licensePlate)
+            if (char.IsLetterOrDigit(c) && index < 7)
+                cleanedLicensePlate[index++] = char.ToUpper(c); 
+
+        return index;
+    }
+    
+    /// <summary>
+    /// Função para aplicar a máscara nos caracteres especificados.
+    /// </summary>
+    /// <param name="licensePlate">A placa do veículo</param>
+    /// <param name="maskCharacter">Caractere para máscarar</param>
+    /// <param name="start">Inicio da máscara</param>
+    /// <param name="length">Tamanho da máscara</param>
+    /// <returns></returns>
+    public static void ApplyMask(Span<char> licensePlate, char maskCharacter, int start, int length)
+        => licensePlate.Slice(start, length).Fill(maskCharacter);
+    
+    /// <summary>
+    /// Função auxiliar para validar se a placa está no formato brasileiro antigo ou Mercosul.
+    /// </summary>
+    /// <param name="licensePlate">A placa do veículo</param>
+    /// <returns></returns>
+    public static bool IsValidPlateFormat(Span<char> licensePlate)
+        => char.IsLetter(licensePlate[0]) && char.IsLetter(licensePlate[1]) && char.IsLetter(licensePlate[2]) &&
+           char.IsDigit(licensePlate[3]) &&
+           ((char.IsDigit(licensePlate[4]) && char.IsDigit(licensePlate[5]) && char.IsDigit(licensePlate[6])) || // Formato antigo
+            (char.IsLetter(licensePlate[4]) && char.IsDigit(licensePlate[5]) && char.IsDigit(licensePlate[6]))); // Formato Mercosul
 }

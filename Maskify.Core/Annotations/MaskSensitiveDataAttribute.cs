@@ -41,6 +41,9 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
             case DataType.ResidentialPhone:
                 value2 = input.MaskResidentialPhone(this.MaskCharacter);
                 break;
+            case DataType.LicensePlate:
+                value2 = input.MaskLicensePlate(this.MaskCharacter);
+                break;
             default:
                 return new ValidationResult("Tipo de dado não suportado.");
         }
@@ -57,7 +60,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
         CreditCard,
         Email,
         MobilePhone,
-        ResidentialPhone
-
+        ResidentialPhone,
+        LicensePlate
     }
 }
