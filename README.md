@@ -4,7 +4,7 @@
 
 ![Maskify Logo](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
 
-**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, mobile and residential phones, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD.
+**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, mobile, residential phones, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD.
 
 ## Key Features
 
@@ -19,6 +19,7 @@
 - **Residential Phone Masking**: Masks residential (landline) phone numbers (8 digits) while keeping the area code (DDD) and the last 4 digits visible.
 - **Generic Masking Method**: Enables masking of any sensitive data (e.g., phone numbers, addresses) with full control over visible characters and masking character.
 - **Customizable Masking**: Define your own masking rules by selecting the number of visible characters and masking symbols (e.g., `*`, `#`).
+- **License Planes Masking**: Masks Brazilian license planes (old and Mercosul).
 
 ## Installation
 
@@ -167,6 +168,18 @@ public class Cliente
 }
 ```
 
+### 9. Mask License Plate
+
+Mask Brazilian License Planes (old and Mercosul), maintaining the 3 first characters and replace other:
+
+```csharp
+
+using Maskify.Core;
+
+string licensePlane = "BRA2E19";
+string maskedLicensePlane = Masker.MaskLicensePlate();
+Console.WriteLine(maskedLicensePlane); // Output: BRA****
+
 ## Custom Masking Rules
 
 In this version, you can create custom masking rules using the `MaskSensitiveData` attribute, specifying how many characters should remain unmasked and choosing a custom masking character.
@@ -176,6 +189,8 @@ In this version, you can create custom masking rules using the `MaskSensitiveDat
 In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now supports:
 - **Mobile Phone Masking**: Supports Brazilian mobile numbers (9 digits) while keeping the DDD and last 4 digits visible.
 - **Residential Phone Masking**: Supports Brazilian landline numbers (8 digits), also keeping the DDD and last 4 digits visible.
+- **License Planes Masking**: Supports Brazilian license plane (old and Mercosul), keeping first 3 characters.
+
 
 ---
 
