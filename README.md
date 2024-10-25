@@ -181,33 +181,6 @@ In addition to CPF, CNPJ, email, and credit card masking, **Maskify** now suppor
 - **Mobile Phone Masking**: Supports Brazilian mobile numbers (9 digits) while keeping the DDD and last 4 digits visible.
 - **Residential Phone Masking**: Supports Brazilian landline numbers (8 digits), also keeping the DDD and last 4 digits visible.
 
-## Version History
-
-### v1.3.0 (October 2024)
-
-#### New Features:
-- **DataAnnotations Support**: Easily mask fields like CPF, CNPJ, credit cards, emails, and phone numbers (mobile and residential) directly in your models using `MaskSensitiveData`.
-- **Flexible Masking**: Customize the masking character and define error messages for invalid data.
-- **Mobile & Residential Phone Masking**: Supports Brazilian phone numbers (both mobile and residential).
-
-#### Improvements:
-- Added support for formatted and unformatted CPF and CNPJ numbers.
-- Credit card masking for 16-digit, Amex (15-digit), and Diners Club (14-digit) cards.
-
-#### Bug Fixes:
-- Fixed email masking inconsistencies across various formats.
-
-### v1.3.1 (October 2024)
-
-Bug Fixes:
-Mobile Phone Masking Fix: Corrected an issue with the masking of Brazilian mobile phone numbers to ensure accurate formatting.
-
-### v1.3.2 (October 2024) - Latest
-
-Changes:
-
-Language Update: Adjusted texts and properties to English for better internationalization.
-
 ---
 
 ## Contributing
