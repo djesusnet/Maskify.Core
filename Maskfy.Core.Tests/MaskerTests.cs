@@ -239,7 +239,7 @@ public class MaskerTests
     public void MaskLicensePlate_ShouldMaskCorrectly(string licensePlate, string expectedMasked)
     {
         // Act
-        string maskedLicensePlate = licensePlate.MaskLicensePlate();
+        string maskedLicensePlate = licensePlate.MaskVehicleLicensePlate();
 
         // Assert
         Assert.Equal(expectedMasked, maskedLicensePlate);
@@ -261,7 +261,7 @@ public class MaskerTests
     public void MaskLicensePlate_ShouldThrowException_WhenLicensePlateIsNullOrEmpty(string licensePlate)
     {
         // Act
-        var exception = Assert.Throws<ArgumentNullException>(() => licensePlate.MaskLicensePlate());
+        var exception = Assert.Throws<ArgumentNullException>(() => licensePlate.MaskVehicleLicensePlate());
         
         // Assert
         Assert.Contains("License plate not provided.", exception.Message);

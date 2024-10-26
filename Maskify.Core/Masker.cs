@@ -215,7 +215,7 @@
         /// <param name="licensePlate">A placa do veículo</param>
         /// <param name="maskCharacter">O caractere de máscara</param>
         /// <returns>A placa máscarada</returns>
-        public static string MaskLicensePlate(this string licensePlate, char maskCharacter = '*')
+        public static string MaskVehicleLicensePlate(this string licensePlate, char maskCharacter = '*')
         {
             if (string.IsNullOrWhiteSpace(licensePlate))
                 throw new ArgumentNullException(nameof(licensePlate), "License plate not provided.");
@@ -229,7 +229,7 @@
                 throw new ArgumentException("Invalid license plate format.");
             
             // Aplica a máscara
-            MaskerHelper.ApplyMask(cleanedLicensePlate, maskCharacter, 3, 4);
+            cleanedLicensePlate.Slice(3, 4).Fill(maskCharacter);
             return new string(cleanedLicensePlate);
         }
     }

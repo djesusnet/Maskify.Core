@@ -42,7 +42,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
                 value2 = input.MaskResidentialPhone(this.MaskCharacter);
                 break;
             case DataType.LicensePlate:
-                value2 = input.MaskLicensePlate(this.MaskCharacter);
+                value2 = input.MaskVehicleLicensePlate(this.MaskCharacter);
                 break;
             default:
                 return new ValidationResult("Tipo de dado não suportado.");

@@ -173,17 +173,6 @@ internal static class MaskerHelper
     }
     
     /// <summary>
-    /// Função para aplicar a máscara nos caracteres especificados.
-    /// </summary>
-    /// <param name="licensePlate">A placa do veículo</param>
-    /// <param name="maskCharacter">Caractere para máscarar</param>
-    /// <param name="start">Inicio da máscara</param>
-    /// <param name="length">Tamanho da máscara</param>
-    /// <returns></returns>
-    public static void ApplyMask(Span<char> licensePlate, char maskCharacter, int start, int length)
-        => licensePlate.Slice(start, length).Fill(maskCharacter);
-    
-    /// <summary>
     /// Função auxiliar para validar se a placa está no formato brasileiro antigo ou Mercosul.
     /// </summary>
     /// <param name="licensePlate">A placa do veículo</param>
