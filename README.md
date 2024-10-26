@@ -4,7 +4,7 @@
 
 ![Maskify Logo](https://github.com/user-attachments/assets/00b4f0a8-29dd-444e-b73b-99812edbcc42)
 
-**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, mobile, residential phones, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD.
+**Maskify** is a lightweight, efficient, and flexible library designed to help developers securely mask sensitive data such as Brazilian documents (CPF, CNPJ), emails, credit cards, mobile and residential phones, and more. It provides out-of-the-box masking for common data types and customizable masking options for any other sensitive information, ensuring compliance with data protection regulations like LGPD and GDPR.
 
 ## Key Features
 
