@@ -236,7 +236,7 @@ public class MaskerTests
     [Theory]
     [InlineData("BRA2E19", "BRA****")]
     [InlineData("RIO2A18", "RIO****")]
-    public void MaskLicensePlate_ShouldMaskCorrectly(string licensePlate, string expectedMasked)
+    public void MaskVehicleLicensePlate_ShouldMaskCorrectly(string licensePlate, string expectedMasked)
     {
         // Act
         string maskedLicensePlate = licensePlate.MaskVehicleLicensePlate();
@@ -248,7 +248,7 @@ public class MaskerTests
     [Theory]
     [InlineData("IAW7C14")]
     [InlineData("ABCDEFG")]
-    public void MaskLicensePlate_ShouldThrowException_WhenLicensePlateIsInvalid(string invalidLicensePlate)
+    public void MaskVehicleLicensePlate_ShouldThrowException_WhenLicensePlateIsInvalid(string invalidLicensePlate)
     {
         // Act & Assert
         Assert.Throws<ArgumentException>(() => invalidLicensePlate.MaskCPF());
@@ -258,7 +258,7 @@ public class MaskerTests
     [InlineData("")]
     [InlineData(" ")]
     [InlineData(null)]
-    public void MaskLicensePlate_ShouldThrowException_WhenLicensePlateIsNullOrEmpty(string licensePlate)
+    public void MaskVehicleLicensePlate_ShouldThrowException_WhenLicensePlateIsNullOrEmpty(string licensePlate)
     {
         // Act
         var exception = Assert.Throws<ArgumentNullException>(() => licensePlate.MaskVehicleLicensePlate());
