@@ -44,7 +44,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
             case DataType.ResidentialPhone:
                 value2 = input.MaskResidentialPhone(this.MaskCharacter);
                 break;
-            case DataType.LicensePlate:
+            case DataType.VehicleLicensePlate:
                 value2 = input.MaskVehicleLicensePlate(this.MaskCharacter);
                 break;
             default:
@@ -65,6 +65,6 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
         Email,
         MobilePhone,
         ResidentialPhone,
-        LicensePlate
+        VehicleLicensePlate
     }
 }
