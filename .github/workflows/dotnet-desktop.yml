@@ -31,7 +31,7 @@ jobs:
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
-      - name: Push NuGet package
+      - name: Push NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-          run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
