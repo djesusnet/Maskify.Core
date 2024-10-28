@@ -25,16 +25,13 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: List all project files
-        run: ls -R
-
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
-      - name: Push NuGet package
+      - name: Push NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json;github"
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"

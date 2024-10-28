@@ -9,6 +9,7 @@
 
 ## Key Features
 
+- **RG Masking**: Masks Brazilian RG numbers (7 to 9 digits), keeping only the last two digits visible.
 - **CPF Masking**: Effortlessly masks CPF numbers, both formatted and unformatted.
 - **CNPJ Masking**: Supports CNPJ numbers, with or without formatting.
 - **Email Masking**: Partially hides email addresses while preserving the domain.
@@ -45,8 +46,30 @@ string cpf = "123.456.789-10";
 string maskedCpf = Masker.MaskCPF(cpf);
 Console.WriteLine(maskedCpf); // Output: ***.***.***-10
 ```
+### 2. Mask RG
+Mask Brazilian RG numbers (7 to 9 digits), formatted or unformatted:
 
-### 2. Mask CNPJ
+```csharp
+using Maskify.Core;
+
+// RG formatado
+string rgFormatted = "46.546.987-3";
+string maskedRgFormatted = Masker.MaskRG(rgFormatted);
+Console.WriteLine(maskedRgFormatted); // Output: **.***.***-3
+
+// RG não formatado
+string rgUnformatted = "465469873";
+string maskedRgUnformatted = Masker.MaskRG(rgUnformatted);
+Console.WriteLine(maskedRgUnformatted); // Output: *******3
+
+// RG com 7 dígitos
+string rgShort = "1234567";
+string maskedRgShort = Masker.MaskRG(rgShort);
+Console.WriteLine(maskedRgShort); // Output: *****67
+```
+
+
+### 3. Mask CNPJ
 
 Mask CNPJ numbers with support for formatted and unformatted inputs:
 
@@ -58,7 +81,7 @@ string maskedCnpj = Masker.MaskCNPJ(cnpj);
 Console.WriteLine(maskedCnpj); // Output: **.***.***/0001-99
 ```
 
-### 3. Mask Email
+### 4. Mask Email
 
 Hide part of the email address while preserving the domain:
 
@@ -70,7 +93,7 @@ string maskedEmail = Masker.MaskEmail(email);
 Console.WriteLine(maskedEmail); // Output: use****@example.com
 ```
 
-### 4. Mask Credit Cards
+### 5. Mask Credit Cards
 
 Supports masking of credit card numbers (standard, Amex, and Diners Club):
 
@@ -90,7 +113,7 @@ string maskedDinersClub = "3056 9304 5567 89".MaskCreditCard();
 Console.WriteLine(maskedDinersClub); // Output: "**** **** **67 89"
 ```
 
-### 5. Mask Mobile Phone
+### 6. Mask Mobile Phone
 
 Mask Brazilian mobile phone numbers (9 digits) while keeping the DDD and the last 4 digits visible:
 
@@ -102,7 +125,7 @@ string maskedMobilePhone = mobilePhone.MaskMobilePhone();
 Console.WriteLine(maskedMobilePhone); // Output: (11) 9****-5678
 ```
 
-### 6. Mask Residential Phone
+### 7. Mask Residential Phone
 
 Mask Brazilian landline phone numbers (8 digits), maintaining the DDD and the last 4 digits visible:
 
@@ -114,7 +137,7 @@ string maskedResidentialPhone = residentialPhone.MaskResidentialPhone();
 Console.WriteLine(maskedResidentialPhone); // Output: (11) ****-6789
 ```
 
-### 7. Mask Custom Data
+### 8. Mask Custom Data
 
 Use the generic method to mask any sensitive data:
 
@@ -131,7 +154,7 @@ Parameters:
 - **`length`**: Number of characters to mask.
 - **`char`**: Masking character (e.g., `*`, `#`).
 
-### 8. `MaskSensitiveData` DataAnnotation
+### 9. `MaskSensitiveData` DataAnnotation
 
 Use **DataAnnotations** to mask sensitive data directly in your model classes, such as CPF, CNPJ, credit card numbers, emails, and phone numbers:
 
@@ -160,7 +183,7 @@ public class Customer
 }
 ```
 
-### 9. Mask License Plate
+### 10. Mask License Plate
 
 Mask Brazilian license plates (old and Mercosul formats), showing only the first 3 characters:
 
@@ -178,7 +201,7 @@ Create custom masking rules with the `MaskSensitiveData` attribute, specifying t
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/djesusnet/Maskify.Core.Library).
+Contributions are welcome! Feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/djesusnet/Maskify.Core).
 
 ## License
 
