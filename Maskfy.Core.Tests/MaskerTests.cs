@@ -266,4 +266,46 @@ public class MaskerTests
         // Assert
         Assert.Contains("License plate not provided.", exception.Message);
     }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData(null)]
+    public void MascararRG_NumeroNaoInformado_RetornaException(string rg)
+    {
+        var exception = Assert.Throws<ArgumentNullException>(() => rg.MaskRG());
+        Assert.Contains("RG not provided.", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("1234567")]    // Menos de 8 dígitos
+    [InlineData("1234567890")] // Mais de 9 dígitos
+    public void MascararRG_NumeroFormatoInvalido_RetornaException(string rg)
+    {
+        var exception = Assert.Throws<ArgumentException>(() => rg.MaskRG());
+
+        // Verifica se a mensagem de erro corresponde ao cenário
+        if (rg.Length < 8)
+        {
+            Assert.Contains("RG must have at least 8 digits.", exception.Message);
+        }
+        else
+        {
+            Assert.Contains("RG must not have more than 9 digits.", exception.Message);
+        }
+    }
+
+    [Theory]
+    [InlineData("46.546.987-3", "**.***.**7-3")] // RG formatado
+    [InlineData("465469873", "*******73")]        // RG não formatado
+    [InlineData("12.345.678-9", "**.***.**8-9")]   // RG com 8 dígitos
+    [InlineData("123456789", "*******89")]        // RG sem formatação com 9 dígitos
+    public void MascararRG_NumeroFormatoValido_RetornaSucesso(string rg, string expectedMaskedRg)
+    {
+        // Act
+        var result = rg.MaskRG();
+
+        // Assert
+        Assert.Equal(expectedMaskedRg, result);
+    }
 }

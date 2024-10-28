@@ -164,7 +164,7 @@ internal static class MaskerHelper
     /// <returns>Retorna quantos caracteres válidos foram extraídos e armazenados na variável cleanedPlate</returns>
     public static int CleanAndExtractLicensePlate(ReadOnlySpan<char> licensePlate, Span<char> cleanedLicensePlate)
     {
-        int index = 0;
+        var index = 0;
         foreach (var c in licensePlate)
             if (char.IsLetterOrDigit(c) && index < 7)
                 cleanedLicensePlate[index++] = char.ToUpper(c); 
@@ -182,4 +182,31 @@ internal static class MaskerHelper
            char.IsDigit(licensePlate[3]) &&
            ((char.IsDigit(licensePlate[4]) && char.IsDigit(licensePlate[5]) && char.IsDigit(licensePlate[6])) || // Formato antigo
             (char.IsLetter(licensePlate[4]) && char.IsDigit(licensePlate[5]) && char.IsDigit(licensePlate[6]))); // Formato Mercosul
+
+    /// <summary>
+    /// Função para reformatar o RG mascarado mantendo os caracteres especiais originais.
+    /// </summary>
+    /// <param name="originalRg">RG original com formatação.</param>
+    /// <param name="maskedRg">RG mascarado sem formatação.</param>
+    /// <returns>O RG formatado com a máscara aplicada.</returns>
+    public static string FormatRgMasked(string originalRg, string maskedRg)
+    {
+        var maskedIndex = 0;
+        Span<char> result = stackalloc char[originalRg.Length];
+
+        for (var i = 0; i < originalRg.Length; i++)
+        {
+            if (char.IsDigit(originalRg[i]) && maskedIndex < maskedRg.Length)
+            {
+                result[i] = maskedRg[maskedIndex++];
+            }
+            else
+            {
+                result[i] = originalRg[i];
+            }
+        }
+
+        return new string(result);
+    }
+
 }

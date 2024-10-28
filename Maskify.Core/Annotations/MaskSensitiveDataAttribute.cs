@@ -26,6 +26,9 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
             case DataType.CPF:
                 value2 = input.MaskCPF(this.MaskCharacter);
                 break;
+            case DataType.RG:
+                value2 = input.MaskRG(this.MaskCharacter);
+                break;
             case DataType.CNPJ:
                 value2 = input.MaskCNPJ(this.MaskCharacter);
                 break;
@@ -56,6 +59,7 @@ public class MaskSensitiveDataAttribute : ValidationAttribute
     public enum DataType
     {
         CPF,
+        RG,
         CNPJ,
         CreditCard,
         Email,

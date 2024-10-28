@@ -232,5 +232,47 @@
             cleanedLicensePlate.Slice(3, 4).Fill(maskCharacter);
             return new string(cleanedLicensePlate);
         }
+
+        /// <summary>
+        /// Função auxiliar para formatar RG mascarado.
+        /// </summary>
+        /// <param name="rg">O RG original, que pode estar formatado ou não.</param>
+        /// <param name="maskCharacter">O caractere de máscara.</param>
+        /// <returns>O RG formatado e mascarado.</returns>
+        public static string MaskRG(this string rg, char maskCharacter = '*')
+        {
+            if (string.IsNullOrWhiteSpace(rg))
+                throw new ArgumentNullException(nameof(rg), "RG not provided.");
+
+           
+            Span<char> rgDigits = stackalloc char[rg.Length];
+            int index = 0;
+
+            
+            foreach (var c in rg)
+            {
+                if (char.IsDigit(c))
+                {
+                    rgDigits[index++] = c;
+                    if (index > 9)
+                        throw new ArgumentException("RG must not have more than 9 digits.");
+                }
+            }
+
+            
+            if (index < 8)
+                throw new ArgumentException("RG must have at least 8 digits.");
+
+            
+            for (int i = 0; i < index - 2; i++)
+            {
+                rgDigits[i] = maskCharacter;
+            }
+
+            
+            return MaskerHelper.FormatRgMasked(rg, new string(rgDigits.Slice(0, index)));
+        }
+
+
     }
 }
