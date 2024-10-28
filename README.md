@@ -201,7 +201,7 @@ Create custom masking rules with the `MaskSensitiveData` attribute, specifying t
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/djesusnet/Maskify.Core.Library).
+Contributions are welcome! Feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/djesusnet/Maskify.Core).
 
 ## License
 
