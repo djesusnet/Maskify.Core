@@ -163,6 +163,9 @@ using Maskify.Core.Annotations;
 
 public class Customer
 {
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.RG, MaskCharacter = '*', ErrorMessage = "Invalid RG.")]
+    public string RG { get; set; }
+
     [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.CPF, MaskCharacter = '#', ErrorMessage = "Invalid CPF.")]
     public string CPF { get; set; }
 
@@ -180,6 +183,10 @@ public class Customer
 
     [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.MobilePhone, MaskCharacter = '*', ErrorMessage = "Invalid mobile number.")]
     public string MobilePhone { get; set; }
+
+    [MaskSensitiveData(MaskSensitiveDataAttribute.DataType.VehicleLicensePlate, MaskCharacter = '#', ErrorMessage = "Invalid vehicle license plate.")]
+    public string VehicleLicensePlate { get; set; }
+
 }
 ```
 
