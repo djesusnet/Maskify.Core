@@ -29,7 +29,7 @@ jobs:
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
       - name: Pack project
-        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj --configuration Release --no-build -o .
+        run: dotnet pack --configuration Release --no-build -o ./nupkg
 
       - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v3
