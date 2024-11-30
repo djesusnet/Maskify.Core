@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: nupkg
-          path: ./*.nupkg  # Carrega diretamente os arquivos .nupkg gerados no diretório atual
+          path: ./nupkg/*.nupkg
 
   publish:
     runs-on: ubuntu-latest
@@ -47,10 +47,13 @@ jobs:
         with:
           name: nupkg
 
+      - name: Check current directory
+        run: pwd
+
       - name: List all directories and files
         run: ls -R
 
       - name: Publish NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+        run: dotnet nuget push *.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
