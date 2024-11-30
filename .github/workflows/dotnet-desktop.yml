@@ -9,10 +9,6 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ['8.0.x', '9.0.x'] # Apenas .NET 8 e .NET 9
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,7 +16,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: '9.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -38,10 +34,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET Core (9.0) for Publishing
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '9.x'
 
       - name: Restore dependencies
         run: dotnet restore
