@@ -12,16 +12,16 @@ jobs:
     strategy:
       matrix:
         dotnet-version: 
-          - '6.x'
-          - '7.x'
-          - '8.x'
-          - '9.x' # Compila e testa com o último patch de cada versão
+          - '6.0.x'
+          - '7.0.x'
+          - '8.0.x'
+          - '9.0.x' # Lista das versões do .NET que serão testadas
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET SDK
+      - name: Set up .NET SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
@@ -38,8 +38,8 @@ jobs:
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
-      # - name: Push NuGet package to NuGet.org
-      #   if: ${{ matrix.dotnet-version == '9.x' }} # Publica apenas para o .NET 9
-      #   env:
-      #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-      #   run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+      - name: Push NuGet package to NuGet.org
+        if: ${{ matrix.dotnet-version == '9.0.x' }} # Publica o pacote apenas para a última versão
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
