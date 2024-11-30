@@ -49,7 +49,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [build-test-net8, build-test-net9]
+    needs: build-test-net9
     steps:
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
