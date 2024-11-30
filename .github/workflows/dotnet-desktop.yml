@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['6.0', '7.0', '8.0', '9.0'] # Lista das versões do .NET SDK
+        dotnet-version: ['8.0', '9.0'] # Apenas .NET 8 e .NET 9
 
     steps:
       - name: Checkout repository
@@ -52,4 +52,4 @@ jobs:
       - name: Push NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https
