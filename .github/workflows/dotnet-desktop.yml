@@ -27,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
-      - name: Publish build artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
@@ -39,14 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.x'
-
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
