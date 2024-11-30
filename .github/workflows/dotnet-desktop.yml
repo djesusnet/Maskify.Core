@@ -27,7 +27,10 @@ jobs:
 
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
-      
+         
+      - name: Pack project
+        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj --configuration Release --no-build -o ./nupkg
+
       - name: Check current version on NuGet
         id: check-version
         run: |
@@ -58,9 +61,6 @@ jobs:
             echo "⚠️ Package version $LOCAL_VERSION already exists on NuGet. Skipping upload."
             exit 0
           fi
-          
-      - name: Pack project
-        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj --configuration Release --no-build -o ./nupkg
 
       - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v3
