@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore --framework net9.0
 
       - name: Build project
         run: dotnet build --configuration Release --no-restore
@@ -39,7 +39,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore --framework net8.0
 
       - name: Build project
         run: dotnet build --configuration Release --no-restore
