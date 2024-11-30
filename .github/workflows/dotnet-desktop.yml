@@ -27,7 +27,28 @@ jobs:
 
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
+      
+      - name: Check current version on NuGet
+        id: check-version
+        run: |
+          PACKAGE_NAME="Maskify.Core"
+          API_URL="https://api.nuget.org/v3-flatcontainer/$PACKAGE_NAME/index.json"
+          echo "Fetching latest version of $PACKAGE_NAME from $API_URL..."
+          LATEST_VERSION=$(curl -s $API_URL | jq -r '.versions[-1]')
+          echo "Latest version is: $LATEST_VERSION"
+          echo "::set-output name=latest_version::$LATEST_VERSION"
 
+      - name: Verify if package version exists
+        run: |
+          PACKAGE_NAME="Maskify.Core"
+          LOCAL_VERSION=$(ls *.nupkg | grep -oP '(?<=Maskify\.Core\.).*(?=\.nupkg)')
+          echo "Local package version: $LOCAL_VERSION"
+          echo "Latest published version: ${{ steps.check-version.outputs.latest_version }}"
+          if [ "$LOCAL_VERSION" == "${{ steps.check-version.outputs.latest_version }}" ]; then
+            echo "Package version $LOCAL_VERSION already exists on NuGet. Skipping upload."
+            exit 0
+          fi
+          
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
