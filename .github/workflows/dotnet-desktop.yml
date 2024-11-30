@@ -9,22 +9,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: 
-          - '6.x'
-          - '7.x'
-          - '8.x'
-          - '9.x'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET SDK
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: '9.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -39,7 +32,6 @@ jobs:
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
       - name: Push NuGet package to NuGet.org
-        if: ${{ matrix.dotnet-version == '9.x' }} # Publica o pacote apenas para a versão 9.x
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
