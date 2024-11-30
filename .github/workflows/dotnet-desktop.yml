@@ -39,6 +39,9 @@ jobs:
         with:
           dotnet-version: '9.x'
 
+      - name: List files
+        run: ls -R
+
       - name: Pack project
         working-directory: ./Maskfy.Core
         run: dotnet pack Maskify.Core.csproj --configuration Release --no-build -o ../nupkg
