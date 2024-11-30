@@ -13,10 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET Core (6.x)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.x'
+      - name: Install .NET 6 SDK
+        run: |
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/6.0.100/dotnet-sdk-6.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-6.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          export DOTNET_ROOT=$HOME/dotnet
+          export PATH=$HOME/dotnet:$PATH
 
       - name: Restore dependencies
         run: dotnet restore
@@ -33,10 +35,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET Core (7.x)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.x'
+      - name: Install .NET 7 SDK
+        run: |
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/7.0.100/dotnet-sdk-7.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-7.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          export DOTNET_ROOT=$HOME/dotnet
+          export PATH=$HOME/dotnet:$PATH
 
       - name: Restore dependencies
         run: dotnet restore
@@ -53,10 +57,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET Core (8.x)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.x'
+      - name: Install .NET 8 SDK
+        run: |
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/8.0.100/dotnet-sdk-8.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-8.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          export DOTNET_ROOT=$HOME/dotnet
+          export PATH=$HOME/dotnet:$PATH
 
       - name: Restore dependencies
         run: dotnet restore
@@ -75,15 +81,10 @@ jobs:
 
       - name: Install .NET 9 SDK
         run: |
-          wget https://dotnetcli.azureedge.net/dotnet/Sdk/9.0.100/sdk-9.0.100-linux-x64.tar.gz
-          mkdir -p $HOME/dotnet && tar zxf sdk-9.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/9.0.100/dotnet-sdk-9.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-9.0.100-linux-x64.tar.gz -C $HOME/dotnet
           export DOTNET_ROOT=$HOME/dotnet
           export PATH=$HOME/dotnet:$PATH
-
-      - name: Set up .NET Core (9.x)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -105,10 +106,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET Core (9.x) for Publishing
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.x'
+      - name: Install .NET 9 SDK for Publishing
+        run: |
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/9.0.100/dotnet-sdk-9.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-9.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          export DOTNET_ROOT=$HOME/dotnet
+          export PATH=$HOME/dotnet:$PATH
 
       - name: Restore dependencies
         run: dotnet restore
