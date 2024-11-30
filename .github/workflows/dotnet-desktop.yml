@@ -27,6 +27,9 @@ jobs:
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
+      - name: List built files
+        run: ls -R ./Maskfy.Core/bin/Release/
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -43,6 +46,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
+
+      - name: List downloaded artifacts
+        run: ls -R .
 
       - name: Pack project
         working-directory: ./Maskfy.Core
