@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['8.0', '9.0'] # Apenas .NET 8 e .NET 9
+        dotnet-version: ['8.0.x', '9.0.x'] # Apenas .NET 8 e .NET 9
 
     steps:
       - name: Checkout repository
@@ -41,7 +41,7 @@ jobs:
       - name: Set up .NET Core (9.0) for Publishing
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0'
+          dotnet-version: '9.0.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -52,4 +52,4 @@ jobs:
       - name: Push NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
