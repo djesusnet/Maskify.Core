@@ -34,23 +34,33 @@ jobs:
           PACKAGE_NAME="Maskify.Core"
           API_URL="https://api.nuget.org/v3-flatcontainer/$PACKAGE_NAME/index.json"
           echo "Fetching latest version of $PACKAGE_NAME from $API_URL..."
-          LATEST_VERSION=$(curl -s $API_URL | jq -r '.versions[-1]')
-          echo "Latest version is: $LATEST_VERSION"
-          echo "::set-output name=latest_version::$LATEST_VERSION"
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" $API_URL)
+          if [ "$RESPONSE" -eq 404 ]; then
+            echo "Package $PACKAGE_NAME does not exist on NuGet."
+            echo "::set-output name=latest_version::none"
+          elif [ "$RESPONSE" -ne 200 ]; then
+            echo "Failed to fetch version. HTTP Status: $RESPONSE"
+            cat response.json
+            exit 1
+          else
+            LATEST_VERSION=$(jq -r '.versions[-1]' response.json)
+            echo "Latest version on NuGet: $LATEST_VERSION"
+            echo "::set-output name=latest_version::$LATEST_VERSION"
+          fi
 
       - name: Verify if package version exists
         run: |
           PACKAGE_NAME="Maskify.Core"
-          LOCAL_VERSION=$(ls *.nupkg | grep -oP '(?<=Maskify\.Core\.).*(?=\.nupkg)')
+          LOCAL_VERSION=$(ls ./Maskfy.Core/bin/Release/*.nupkg | grep -oP '(?<=Maskify\.Core\.).*(?=\.nupkg)')
           echo "Local package version: $LOCAL_VERSION"
           echo "Latest published version: ${{ steps.check-version.outputs.latest_version }}"
           if [ "$LOCAL_VERSION" == "${{ steps.check-version.outputs.latest_version }}" ]; then
-            echo "Package version $LOCAL_VERSION already exists on NuGet. Skipping upload."
+            echo "⚠️ Package version $LOCAL_VERSION already exists on NuGet. Skipping upload."
             exit 0
           fi
           
       - name: Pack project
-        run: dotnet pack --configuration Release --no-build -o ./nupkg
+        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj --configuration Release --no-build -o ./nupkg
 
       - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v3
@@ -77,4 +87,4 @@ jobs:
       - name: Publish NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push *.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
