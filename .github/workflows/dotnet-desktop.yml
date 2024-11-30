@@ -31,9 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test
     steps:
-     - name: Pack project
-        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj  --configuration Release --no-build -o ./nupkg
-
+      - name: Pack project
+      working-directory: ./Maskfy.Core
+      run: dotnet pack Maskify.Core.csproj --configuration Release --no-build -o ../nupkg
+    
       - name: Push NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
