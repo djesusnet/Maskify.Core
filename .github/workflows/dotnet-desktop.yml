@@ -27,25 +27,25 @@ jobs:
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
-        build-test-net8:
-          runs-on: ubuntu-latest
-          steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-      
-            - name: Set up .NET Core
-              uses: actions/setup-dotnet@v3
-              with:
-                dotnet-version: '8.x'
-      
-            - name: Restore dependencies
-              run: dotnet restore
-      
-            - name: Build project
-              run: dotnet build --configuration Release --no-restore
-      
-            - name: Run unit tests
-              run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
+  build-test-net8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
   publish:
     runs-on: ubuntu-latest
