@@ -32,7 +32,7 @@ jobs:
     needs: build-test
     steps:
       - name: Pack project
-        run: dotnet pack --configuration Release --no-build -o ./nupkg
+        run: dotnet pack ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --configuration Release --no-build -o ./nupkg
 
       - name: Push NuGet package to NuGet.org
         env:
