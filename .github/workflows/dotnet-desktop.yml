@@ -38,8 +38,8 @@ jobs:
       - name: Pack project
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
-      - name: Push NuGet package to NuGet.org
-        if: ${{ matrix.dotnet-version == '9.0.x' }} # Publica o pacote apenas para a última versão
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+      # - name: Push NuGet package to NuGet.org
+      #   if: ${{ matrix.dotnet-version == '9.0.x' }} # Publica o pacote apenas para a última versão
+      #   env:
+      #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      #   run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
