@@ -12,16 +12,23 @@ jobs:
     strategy:
       matrix:
         dotnet-version: 
-          - '6.0.x'
-          - '7.0.x'
-          - '8.0.x'
-          - '9.0.x' # Lista das versões do .NET que serão testadas
+          - '6.x'
+          - '7.x'
+          - '8.x'
+          - '9.x'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up .NET SDK ${{ matrix.dotnet-version }}
+      - name: Install .NET 9 SDK (if necessary)
+        if: ${{ matrix.dotnet-version == '9.x' }}
+        run: |
+          wget https://dotnetcli.azureedge.net/dotnet/Sdk/9.0.100/sdk-9.0.100-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet && tar zxf sdk-9.0.100-linux-x64.tar.gz -C $HOME/dotnet
+          export PATH=$HOME/dotnet:$PATH
+
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
@@ -39,7 +46,7 @@ jobs:
         run: dotnet pack --configuration Release --no-build -o ./nupkg
 
       # - name: Push NuGet package to NuGet.org
-      #   if: ${{ matrix.dotnet-version == '9.0.x' }} # Publica o pacote apenas para a última versão
+      #   if: ${{ matrix.dotnet-version == '9.x' }}
       #   env:
       #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       #   run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
