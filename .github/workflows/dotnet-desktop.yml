@@ -9,6 +9,7 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -16,7 +17,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '8.x'
 
       - name: Restore dependencies
         run: dotnet restore
@@ -27,34 +28,26 @@ jobs:
       - name: Run unit tests
         run: dotnet test ./Maskfy.Core.Tests/Maskify.Core.Tests.csproj --collect "XPlat Code Coverage"
 
-      - name: List built files
-        run: ls -R ./Maskfy.Core/bin/Release/
+      - name: Pack project
+        run: dotnet pack ./Maskfy.Core/Maskify.Core.csproj --configuration Release --no-build -o ./nupkg
 
-      - name: Upload build artifacts
+      - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v3
         with:
-          name: build-artifacts
-          path: |
-            ./Maskfy.Core/bin/Release/
-            ./Maskfy.Core/obj/Release/
+          name: nupkg
+          path: ./nupkg
 
   publish:
     runs-on: ubuntu-latest
     needs: build-test
+
     steps:
-      - name: Download build artifacts
+      - name: Download NuGet package artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-artifacts
+          name: nupkg
 
-      - name: List downloaded artifacts
-        run: ls -R .
-
-      - name: Pack project
-        working-directory: ./Maskfy.Core
-        run: dotnet pack Maskify.Core.csproj --configuration Release --no-build -o ../nupkg
-
-      - name: Push NuGet package to NuGet.org
+      - name: Publish NuGet package to NuGet.org
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        run: dotnet nuget push ../nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source "https://api.nuget.org/v3/index.json"
